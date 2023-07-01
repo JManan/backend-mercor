@@ -4,6 +4,10 @@ import requests
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+
+def index(request):
+    return render(request, "doc/index.html")
+
 @api_view(['GET'])
 def scrape(request):
     drug = request.query_params.get("searchitem")
@@ -20,5 +24,5 @@ def scrape(request):
                     break
                 values.append(sibling.text)
             blocks[heading.text] = values
-            
+
     return Response(blocks)

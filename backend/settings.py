@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -7,7 +8,7 @@ SECRET_KEY = "django-insecure-n-ppxvwtgc48(b$(f1lhm64vzks(qcjir6!$)y(t52o2)i*&h8
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", "localhost", ".vercel.app"]
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "doc",
@@ -53,13 +54,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
+DATABASES = {
+    "default" : dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -87,5 +91,5 @@ USE_TZ = True
 CORS_ALLOW_ALL_ORIGINS = True
 
 STATIC_URL = "static/"
-
+MEDIA_URL = "media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

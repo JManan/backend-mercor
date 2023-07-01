@@ -11,6 +11,8 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
+    "patient",
+    "phonenumber_field",
     "doc",
     "corsheaders",
     'rest_framework',

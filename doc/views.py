@@ -3,7 +3,9 @@ from bs4 import BeautifulSoup
 import requests
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
+from .serializers import DocSerializer
+from .models import Doc
+from django.http import JsonResponse
 
 def index(request):
     return render(request, "doc/index.html")
@@ -26,3 +28,13 @@ def scrape(request):
             blocks[heading.text] = values
 
     return Response(blocks)
+
+@api_view(['GET'])
+def doc_data(request):
+    uuid = request.query_params.get("id")
+    try:
+        doc = Doc.objects.get(uuid=uuid)
+    except:
+        doc = None
+    serializer = DocSerializer(doc)
+    return JsonResponse(serializer.data)

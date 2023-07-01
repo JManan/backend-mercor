@@ -1,5 +1,6 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+import uuid
 
 class Doc(models.Model):
     name = models.TextField()
@@ -8,5 +9,8 @@ class Doc(models.Model):
     gender = models.TextField()
     phone_number = PhoneNumberField(blank=True)
     email = models.EmailField()
-    uuid = models.UUIDField(primary_key=True, unique=True, editable=False)
+    uuid = models.UUIDField(primary_key=True, unique=True,default = uuid.uuid4, editable=False)
+    
+    def __str__(self):
+        return f"{self.name} {self.uuid}"
     

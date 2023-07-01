@@ -29,12 +29,18 @@ def scrape(request):
 
     return Response(blocks)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def doc_data(request):
-    uuid = request.query_params.get("id")
-    try:
-        doc = Doc.objects.get(uuid=uuid)
-    except:
-        doc = None
-    serializer = DocSerializer(doc)
-    return JsonResponse(serializer.data)
+    if request.method == "POST":
+        serializer = DocSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
+    else:
+        uuid = request.query_params.get("id")
+        try:
+            doc = Doc.objects.get(uuid=uuid)
+        except:
+            doc = None
+        serializer = DocSerializer(doc)
+        return JsonResponse(serializer.data)

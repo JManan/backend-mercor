@@ -7,5 +7,7 @@ urlpatterns = [
     path("", doc_views.index, name="index"),
     path("scrape/", doc_views.scrape, name="scrape"),
     path("doc/", doc_views.doc_data, name="doc-data"),
-    path("patient/", patient_views.patient_data, name="patient-data")
+    path("add-doc/", doc_views.doc_data, name="doc-data"),
+    path("patient/", patient_views.patient_data, name="list-patient"),
+    path("add-patient/", patient_views.patient_data, name="add-patient")
 ]

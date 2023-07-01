@@ -24,5 +24,6 @@ class Report(models.Model):
     symtoms = models.TextField()
     medicine = models.TextField()
 
+
     def __str__(self):
         return f"{self.uuid}"

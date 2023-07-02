@@ -5,6 +5,7 @@ from .models import Patient
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from rest_framework.response import Response
+from doc.serializers import DocSerializer
 
 @api_view(['GET', 'POST'])
 def patient_data(request):
@@ -22,6 +23,10 @@ def patient_data(request):
         serializer = PatientSerializer(patient)
         return JsonResponse(serializer.data, safe=False)
 
-# @api_view(['GET'])
-# def doc_list(request):
-
+@api_view(['GET'])
+def doc_list(request):
+    id = request.query_params.get("id")
+    patient = Patient.objects.get(short_uuid=id)
+    docs = patient.doc.all()
+    serializer = DocSerializer(docs, many=True)
+    return JsonResponse(serializer.data, safe=False)

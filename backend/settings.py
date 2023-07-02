@@ -56,23 +56,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
-DATABASES = {  
-    'default': {  
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'mydb',  
-        'USER': 'root',  
-        'PASSWORD': 'manan',  
-        'HOST': 'localhost',  
-        'PORT': '3306',  
-        'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
-        }  
-    }  
-}  
+# DATABASES = {  
+#     'default': {  
+#         'ENGINE': 'django.db.backends.mysql',  
+#         'NAME': 'mydb',  
+#         'USER': 'root',  
+#         'PASSWORD': 'manan',  
+#         'HOST': 'localhost',  
+#         'PORT': '3306',  
+#         'OPTIONS': {  
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+#         }  
+#     }  
+# }  
 
-# DATABASES = {
-#     "default" : dj_database_url.parse(os.environ.get("DATABASE_URL"))
-# }
+DATABASES = {
+    "default" : dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [

@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from .serializers import DocSerializer
 from .models import Doc
 from django.http import JsonResponse
+from patient.serializers import PatientSerializer
 
 def index(request):
     return render(request, "doc/index.html")
@@ -65,3 +66,11 @@ def doc_data(request):
             doc = None
         serializer = DocSerializer(doc)
         return JsonResponse(serializer.data)
+
+@api_view(['GET'])
+def patient_list(request):
+    id = request.query_params.get("id")
+    doc = Doc.objects.get(short_uuid=id)
+    patients = doc.patients.all()
+    serializer = PatientSerializer(patients, many=True)
+    return JsonResponse(serializer.data, safe=False)

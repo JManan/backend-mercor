@@ -20,4 +20,8 @@ def patient_data(request):
         except:
             patient= None
         serializer = PatientSerializer(patient)
-        return JsonResponse(serializer.data)
+        return JsonResponse(serializer.data, safe=False)
+
+# @api_view(['GET'])
+# def doc_list(request):
+

@@ -9,5 +9,6 @@ urlpatterns = [
     path("doc/", doc_views.doc_data, name="doc-data"),
     path("add-doc/", doc_views.doc_data, name="doc-data"),
     path("patient/", patient_views.patient_data, name="list-patient"),
-    path("add-patient/", patient_views.patient_data, name="add-patient")
+    path("add-patient/", patient_views.patient_data, name="add-patient"),
+    path("patient-list/doc/", doc_views.patient_list, name="patient-list")
 ]

@@ -40,10 +40,18 @@ def patient_report(request):
     serializer = ReportSerializer(report, many=True)
     return JsonResponse(serializer.data, safe=False)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def patient_timeline(request):
+    if request.method == 'POST':
+        serializer = TimelineSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
     id = request.query_params.get("id")
     patient = Patient.objects.get(short_uuid=id)
     report = patient.patient_report.all()
     serializer = TimelineSerializer(report, many=True)
     return JsonResponse(serializer.data, safe=False)
+
+# @api_view(['GET'])
+

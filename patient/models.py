@@ -35,7 +35,7 @@ class Report(models.Model):
     doc_id = models.ForeignKey(Doc, on_delete=models.CASCADE, related_name="doc_report")
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="patient_report")
     visit_name = models.CharField(max_length=40)
-    pdf_link = models.CharField(max_length=50)
+    pdf_link = models.CharField(max_length=50, blank=True)
     date = models.DateField()
     time = models.TimeField()
     short_uuid = models.CharField(max_length=10, blank=True, editable=False)

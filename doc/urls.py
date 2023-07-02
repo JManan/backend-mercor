@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from doc import views as doc_views
 from patient import views as patient_views
+from patient.views import SamplePDFView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -18,6 +19,10 @@ urlpatterns = [
     path("patient/reports/", patient_views.patient_report, name="patient-report"),
     path("timeline/", patient_views.patient_timeline, name="patient-timeline")
 ]
+
+urlpatterns = [
+    path('media/', SamplePDFView.as_view(), name='sample-pdf'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, 

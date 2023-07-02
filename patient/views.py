@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from rest_framework import serializers
-from .serializers import PatientSerializer, ReportSerializer, TimelineSerializer
+from .serializers import PatientSerializer, ReportSerializer, TimelineSerializer, SamplePDFSerializer
 from .models import Patient
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from rest_framework.response import Response
 from doc.serializers import DocSerializer
+from rest_framework.views import APIView
 
 
 @api_view(['GET', 'POST'])
@@ -53,5 +54,11 @@ def patient_timeline(request):
     serializer = TimelineSerializer(report, many=True)
     return JsonResponse(serializer.data, safe=False)
 
-# @api_view(['GET'])
+class SamplePDFView(APIView):
+    def get(self, request):
+        serializer = SamplePDFSerializer(
+            {'file': 'sample.pdf'}, 
+            context={'request': request}
+        )
+        return Response(serializer.data)
 

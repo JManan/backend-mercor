@@ -23,3 +23,10 @@ class TimelineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
         fields = ["visit_name", "doc_name", "date", "time", "pdf_link"]
+        
+class SamplePDFSerializer(serializers.Serializer):
+    file = serializers.SerializerMethodField()
+
+    def get_file(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj['file'])

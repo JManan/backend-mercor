@@ -5,8 +5,9 @@ import uuid
 
 class Patient(models.Model):
     name = models.TextField()
+    age = models.IntegerField()
     weight = models.IntegerField()
-    heigth = models.IntegerField()
+    height = models.IntegerField()
     gender = models.TextField()
     phone_number = PhoneNumberField(blank=True)
     email = models.EmailField()
@@ -15,9 +16,15 @@ class Patient(models.Model):
     past_allergies = models.TextField(blank=True)
     past_operations = models.TextField(blank=True)
     past_treatment = models.TextField(blank=True)
+    short_uuid = models.CharField(max_length=10, blank=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        if not self.short_uuid:
+            self.short_uuid = str(self.uuid)[:10]
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.name} {self.uuid}"
+        return f"{self.name} {self.short_uuid}"
 
 class Report(models.Model):
     uuid = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)

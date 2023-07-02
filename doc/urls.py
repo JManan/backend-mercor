@@ -14,7 +14,9 @@ urlpatterns = [
     path("patient/", patient_views.patient_data, name="list-patient"),
     path("add-patient/", patient_views.patient_data, name="add-patient"),
     path("patient-list/doc/", doc_views.patient_list, name="patient-list"),
-    path("doc-list/patient/", patient_views.doc_list, name="doc-list")
+    path("doc-list/patient/", patient_views.doc_list, name="doc-list"),
+    path("patient/reports/", patient_views.patient_report, name="patient-report"),
+    path("timeline/", patient_views.patient_timeline, name="patient-timeline")
 ]
 
 if settings.DEBUG:

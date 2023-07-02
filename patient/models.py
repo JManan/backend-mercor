@@ -34,6 +34,10 @@ class Report(models.Model):
     medicine = models.TextField()
     doc_id = models.ForeignKey(Doc, on_delete=models.CASCADE, related_name="doc_report")
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="patient_report")
+    visit_name = models.CharField(max_length=40)
+    pdf_link = models.CharField(max_length=50)
+    date = models.DateField()
+    time = models.TimeField()
     short_uuid = models.CharField(max_length=10, blank=True, editable=False)
 
     def save(self, *args, **kwargs):
@@ -42,4 +46,4 @@ class Report(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.short_uuid}"
+        return f"{self.short_uuid} {self.time}"

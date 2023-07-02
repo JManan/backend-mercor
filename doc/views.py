@@ -74,3 +74,5 @@ def patient_list(request):
     patients = doc.patients.all()
     serializer = PatientSerializer(patients, many=True)
     return JsonResponse(serializer.data, safe=False)
+
+# json = {"uuid": "6bb38895-5b16-4aae-929f-99e7d4baefbe", "name": "hakjdf", "phone_number": "+919876543210", "gender": "male", "email": "ma@gai.com", "location": ";jdfa", "working_hrs": ";kajdf", "designation": ";kjdf", "short_uuid": "6bb38895-5"},

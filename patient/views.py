@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from rest_framework import serializers
-from .serializers import PatientSerializer
+from .serializers import PatientSerializer, ReportSerializer, TimelineSerializer
 from .models import Patient
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from rest_framework.response import Response
 from doc.serializers import DocSerializer
+
 
 @api_view(['GET', 'POST'])
 def patient_data(request):
@@ -29,4 +30,20 @@ def doc_list(request):
     patient = Patient.objects.get(short_uuid=id)
     docs = patient.doc.all()
     serializer = DocSerializer(docs, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+@api_view(['GET'])
+def patient_report(request):
+    id = request.query_params.get("id")
+    patient = Patient.objects.get(short_uuid=id)
+    report = patient.patient_report.all()
+    serializer = ReportSerializer(report, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+@api_view(['GET'])
+def patient_timeline(request):
+    id = request.query_params.get("id")
+    patient = Patient.objects.get(short_uuid=id)
+    report = patient.patient_report.all()
+    serializer = TimelineSerializer(report, many=True)
     return JsonResponse(serializer.data, safe=False)
